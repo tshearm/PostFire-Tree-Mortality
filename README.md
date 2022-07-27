@@ -4,6 +4,8 @@ R code for post-fire tree mortality analyses
 # Disclaimer
 This code was used in the analysis of post-fire tree mortality in the manuscript "The waning predictive ability of crown and bole injury for post-fire tree mortality in eight western USA conifers" currently in minor revisions for the journal Ecological Applications. I am sure there is a more efficient way to code these analyses and in the future I hope to update it with better code. For now, this is exactly what was used in the paper. Please forgive my messy coding style!
 
+The code is free to use for anyone. Suggestions for improvements are always welcome. Contact tshearman@talltimbers.org for any questions/comments.
+
 The data are from the Fire and Tree Mortality database (FTM, Cansler et al. 2020), available at: https://www.fs.usda.gov/rds/archive/catalog/RDS-2020-0001.
 
 Literature Cited

@@ -4,8 +4,6 @@ library(ggplot2)
 library(viridis)
 library(dplyr)
 library(tidyr)
-library(grid)
-library(gridExtra)
 library(ggpubr)
 
 #####Load Data#############
@@ -111,7 +109,7 @@ ABCO_flds5<-createFolds(ABCO_yr5$Status, k = 5, list = TRUE, returnTrain = FALSE
 
 ##1
 set.seed(1980)
-samp <-trunc((0.2*min(table(ABCO_yr1[-ABCO_flds1[[1]],]$Status))))
+
 samp <-trunc((0.2*min(table(ABCO_yr1[-ABCO_flds1[[1]],]$Status))))
 ABCO_train.rf1.1 <- randomForest(data = ABCO_yr1[-ABCO_flds1[[1]],], factor(Status)~CVS_percent+DBH_cm + 
                                    BCH_percent,
@@ -140,7 +138,7 @@ ABCO_train.rf5.1 <- randomForest(data = ABCO_yr5[-ABCO_flds5[[1]],], factor(Stat
                                    BCH_percent, 
                                  importance=TRUE, ntree=10000, mtry=1,sampsize=c(samp,samp),
                                  na.action=na.omit)
-varImpPlot(ABCO_train.rf5.1)
+
 
 ##2
 
@@ -435,8 +433,6 @@ ABCO_3.5pred <- predict(ABCO_train.rf3.5, newdata=ABCO_test3.5)
 ABCO_4.5pred <- predict(ABCO_train.rf4.5, newdata=ABCO_test4.5)
 ABCO_5.5pred <- predict(ABCO_train.rf5.5, newdata=ABCO_test5.5)
 
-length(ABCO_3.1pred)
-length(ABCO_test3.1$Status)
 
 ABCO.test.preds <-data.frame(Status = c(ABCO_test1.1$Status,ABCO_test2.1$Status,ABCO_test3.1$Status,ABCO_test4.1$Status,ABCO_test5.1$Status,
                                         ABCO_test1.2$Status,ABCO_test2.2$Status,ABCO_test3.2$Status,ABCO_test4.2$Status,ABCO_test5.2$Status,
@@ -766,7 +762,7 @@ ABGR_train.rf5.1 <- randomForest(data = ABGR_yr5[-ABGR_flds5[[1]],], factor(Stat
                                    BCH_percent, 
                                  importance=TRUE, ntree=10000, mtry=1,sampsize=c(samp,samp),
                                  na.action=na.omit)
-varImpPlot(ABGR_train.rf5.1)
+
 
 ##2
 
@@ -899,9 +895,6 @@ ABGR_train.rf5.5 <- randomForest(data = ABGR_yr5[-ABGR_flds5[[5]],], factor(Stat
 ABGR_test1.1 <- ABGR_yr1[ABGR_flds1[[1]],] %>% 
   select(Status, CVS_percent, DBH_cm,BCH_percent,   dead_check) 
 
-
-table(ABGR_yr1[ABGR_flds1[[1]],] $  exclude=NULL)
-table(ABGR_test1.1$  exclude=NULL)
 
 ABGR_test2.1 <- ABGR_yr2[ABGR_flds2[[1]],] %>% 
   select(Status, CVS_percent, DBH_cm,BCH_percent,   dead_check) 
@@ -1322,7 +1315,7 @@ CADE27_flds5<-createFolds(CADE27_yr5$Status, k = 5, list = TRUE, returnTrain = F
 
 ##1
 set.seed(1980)
-samp <-trunc((0.2*min(table(CADE27_yr1[-CADE27_flds1[[1]],]$Status))))
+
 samp <-trunc((0.2*min(table(CADE27_yr1[-CADE27_flds1[[1]],]$Status))))
 CADE27_train.rf1.1 <- randomForest(data = CADE27_yr1[-CADE27_flds1[[1]],], factor(Status)~CVS_percent+DBH_cm + 
                                      BCH_percent,
@@ -1351,7 +1344,7 @@ CADE27_train.rf5.1 <- randomForest(data = CADE27_yr5[-CADE27_flds5[[1]],], facto
                                      BCH_percent, 
                                    importance=TRUE, ntree=10000, mtry=1,sampsize=c(samp,samp),
                                    na.action=na.omit)
-varImpPlot(CADE27_train.rf5.1)
+
 
 ##2
 
@@ -1917,7 +1910,7 @@ LAOC_flds5<-createFolds(LAOC_yr5$Status, k = 5, list = TRUE, returnTrain = FALSE
 
 ##1
 set.seed(1980)
-samp <-trunc((0.2*min(table(LAOC_yr1[-LAOC_flds1[[1]],]$Status))))
+
 samp <-trunc((0.2*min(table(LAOC_yr1[-LAOC_flds1[[1]],]$Status))))
 LAOC_train.rf1.1 <- randomForest(data = LAOC_yr1[-LAOC_flds1[[1]],], factor(Status)~CVS_percent+DBH_cm + 
                                    BCH_percent,
@@ -2081,8 +2074,6 @@ LAOC_test1.1 <- LAOC_yr1[LAOC_flds1[[1]],] %>%
   select(Status, CVS_percent, DBH_cm,BCH_percent,   dead_check) 
 
 
-table(LAOC_yr1[LAOC_flds1[[1]],] $  exclude=NULL)
-table(LAOC_test1.1$  exclude=NULL)
 
 LAOC_test2.1 <- LAOC_yr2[LAOC_flds2[[1]],] %>% 
   select(Status, CVS_percent, DBH_cm,BCH_percent,   dead_check) 
@@ -2216,8 +2207,7 @@ LAOC_3.5pred <- predict(LAOC_train.rf3.5, newdata=LAOC_test3.5)
 LAOC_4.5pred <- predict(LAOC_train.rf4.5, newdata=LAOC_test4.5)
 LAOC_5.5pred <- predict(LAOC_train.rf5.5, newdata=LAOC_test5.5)
 
-length(LAOC_3.1pred)
-length(LAOC_test3.1$Status)
+
 
 LAOC.test.preds <-data.frame(Status = c(LAOC_test1.1$Status,LAOC_test2.1$Status,LAOC_test3.1$Status,LAOC_test4.1$Status,LAOC_test5.1$Status,
                                         LAOC_test1.2$Status,LAOC_test2.2$Status,LAOC_test3.2$Status,LAOC_test4.2$Status,LAOC_test5.2$Status,
@@ -2513,7 +2503,7 @@ PICO_flds5<-createFolds(PICO_yr5$Status, k = 5, list = TRUE, returnTrain = FALSE
 
 ##1
 set.seed(1980)
-samp <-trunc((0.2*min(table(PICO_yr1[-PICO_flds1[[1]],]$Status))))
+
 samp <-trunc((0.2*min(table(PICO_yr1[-PICO_flds1[[1]],]$Status))))
 PICO_train.rf1.1 <- randomForest(data = PICO_yr1[-PICO_flds1[[1]],], factor(Status)~CVS_percent+DBH_cm + 
                                    BCH_percent,
@@ -2542,7 +2532,7 @@ PICO_train.rf5.1 <- randomForest(data = PICO_yr5[-PICO_flds5[[1]],], factor(Stat
                                    BCH_percent, 
                                  importance=TRUE, ntree=10000, mtry=1,sampsize=c(samp,samp),
                                  na.action=na.omit)
-varImpPlot(PICO_train.rf5.1)
+
 
 ##2
 
@@ -2674,9 +2664,6 @@ PICO_train.rf5.5 <- randomForest(data = PICO_yr5[-PICO_flds5[[5]],], factor(Stat
 PICO_test1.1 <- PICO_yr1[PICO_flds1[[1]],] %>% 
   select(Status, CVS_percent, DBH_cm,BCH_percent,   dead_check) 
 
-
-table(PICO_yr1[PICO_flds1[[1]],] $  exclude=NULL)
-table(PICO_test1.1$  exclude=NULL)
 
 PICO_test2.1 <- PICO_yr2[PICO_flds2[[1]],] %>% 
   select(Status, CVS_percent, DBH_cm,BCH_percent,   dead_check) 
@@ -2811,8 +2798,6 @@ PICO_3.5pred <- predict(PICO_train.rf3.5, newdata=PICO_test3.5)
 PICO_4.5pred <- predict(PICO_train.rf4.5, newdata=PICO_test4.5)
 PICO_5.5pred <- predict(PICO_train.rf5.5, newdata=PICO_test5.5)
 
-length(PICO_3.1pred)
-length(PICO_test3.1$Status)
 
 PICO.test.preds <-data.frame(Status = c(PICO_test1.1$Status,PICO_test2.1$Status,PICO_test3.1$Status,PICO_test4.1$Status,PICO_test5.1$Status,
                                         PICO_test1.2$Status,PICO_test2.2$Status,PICO_test3.2$Status,PICO_test4.2$Status,PICO_test5.2$Status,
@@ -3106,7 +3091,7 @@ PILA_flds5<-createFolds(PILA_yr5$Status, k = 5, list = TRUE, returnTrain = FALSE
 
 ##1
 set.seed(1980)
-samp <-trunc((0.2*min(table(PILA_yr1[-PILA_flds1[[1]],]$Status))))
+
 samp <-trunc((0.2*min(table(PILA_yr1[-PILA_flds1[[1]],]$Status))))
 PILA_train.rf1.1 <- randomForest(data = PILA_yr1[-PILA_flds1[[1]],], factor(Status)~CVS_percent+DBH_cm + 
                                    BCH_percent,
@@ -3695,7 +3680,7 @@ PIPO_flds5<-createFolds(PIPO_yr5$Status, k = 5, list = TRUE, returnTrain = FALSE
 
 ##1
 set.seed(1980)
-samp <-trunc((0.2*min(table(PIPO_yr1[-PIPO_flds1[[1]],]$Status))))
+
 samp <-trunc((0.2*min(table(PIPO_yr1[-PIPO_flds1[[1]],]$Status))))
 PIPO_train.rf1.1 <- randomForest(data = PIPO_yr1[-PIPO_flds1[[1]],], factor(Status)~CVS_percent+DBH_cm + 
                                    BCH_percent,
@@ -3724,7 +3709,7 @@ PIPO_train.rf5.1 <- randomForest(data = PIPO_yr5[-PIPO_flds5[[1]],], factor(Stat
                                    BCH_percent, 
                                  importance=TRUE, ntree=10000, mtry=1,sampsize=c(samp,samp),
                                  na.action=na.omit)
-varImpPlot(PIPO_train.rf5.1)
+
 
 ##2
 
@@ -3857,9 +3842,6 @@ PIPO_train.rf5.5 <- randomForest(data = PIPO_yr5[-PIPO_flds5[[5]],], factor(Stat
 PIPO_test1.1 <- PIPO_yr1[PIPO_flds1[[1]],] %>% 
   select(Status, CVS_percent, DBH_cm,BCH_percent,   dead_check) 
 
-
-table(PIPO_yr1[PIPO_flds1[[1]],] $  exclude=NULL)
-table(PIPO_test1.1$  exclude=NULL)
 
 PIPO_test2.1 <- PIPO_yr2[PIPO_flds2[[1]],] %>% 
   select(Status, CVS_percent, DBH_cm,BCH_percent,   dead_check) 
@@ -4285,7 +4267,7 @@ PSME_flds5<-createFolds(PSME_yr5$Status, k = 5, list = TRUE, returnTrain = FALSE
 
 ##1
 set.seed(1980)
-samp <-trunc((0.2*min(table(PSME_yr1[-PSME_flds1[[1]],]$Status))))
+
 samp <-trunc((0.2*min(table(PSME_yr1[-PSME_flds1[[1]],]$Status))))
 PSME_train.rf1.1 <- randomForest(data = PSME_yr1[-PSME_flds1[[1]],], factor(Status)~CVS_percent+DBH_cm + 
                                    BCH_percent,
@@ -4840,328 +4822,10 @@ PSME_pred.results %>%
             MeanTotal = mean(TotalAcc),
             sdTotal = sd(TotalAcc)) -> PSME_RF_preds.sum
 
-###############Plotting false negatives#################
 
-ABCO.test.preds %>%
-  filter(Status==1, dead_check != 9) %>%
-  group_by(dead_check,model, rep, Status) %>%
-  summarize(pct_wrong = sum(wrong)/length(wrong) * 100,
-            nwrong = sum(wrong),
-            ncorrect = sum(correct),
-            lwrong = length(wrong),
-            lcorr = length(correct),
-            modelrep = paste(model, "_", rep),
-            pct_correct = sum(correct)/length(correct) * 100) %>%
-  drop_na(dead_check) -> ABCO.wrong.preds
-
-
-ABCO.wrong.p <- ggplot(data=ABCO.wrong.preds, aes(x=factor(dead_check), y= pct_wrong, color=factor(model))) +
-  geom_boxplot() +
-  theme_classic() +
-  scale_color_viridis(discrete=TRUE, option = "turbo")
-
-ABGR.test.preds$wrong <- ifelse(ABGR.test.preds$Status == ABGR.test.preds$preds, 0,1)
-ABGR.test.preds$correct <- ifelse(ABGR.test.preds$Status == ABGR.test.preds$preds, 1,0)
-ABGR.test.preds %>%
-  filter(Status==1, dead_check != 9) %>%
-  group_by(dead_check,model, rep, Status) %>%
-  summarize(pct_wrong = sum(wrong)/length(wrong) * 100,
-            nwrong = sum(wrong),
-            ncorrect = sum(correct),
-            lwrong = length(wrong),
-            lcorr = length(correct),
-            modelrep = paste(model, "_", rep),
-            pct_correct = sum(correct)/length(correct) * 100) %>%
-  drop_na(dead_check) -> ABGR.wrong.preds
-
-
-ABGR.wrong.p <- ggplot(data=ABGR.wrong.preds, aes(x=factor(dead_check), y= pct_wrong, color=factor(model))) +
-  geom_boxplot() +
-  theme_classic() +
-  scale_color_viridis(discrete=TRUE, option = "turbo")
-
-
-CADE27.test.preds$wrong <- ifelse(CADE27.test.preds$Status == CADE27.test.preds$preds, 0,1)
-CADE27.test.preds$correct <- ifelse(CADE27.test.preds$Status == CADE27.test.preds$preds, 1,0)
-CADE27.test.preds %>%
-  filter(Status==1, dead_check != 9) %>%
-  group_by(dead_check,model, rep, Status) %>%
-  summarize(pct_wrong = sum(wrong)/length(wrong) * 100,
-            nwrong = sum(wrong),
-            ncorrect = sum(correct),
-            lwrong = length(wrong),
-            lcorr = length(correct),
-            modelrep = paste(model, "_", rep),
-            pct_correct = sum(correct)/length(correct) * 100) %>%
-  drop_na(dead_check) -> CADE27.wrong.preds
-
-
-CADE27.wrong.p <- ggplot(data=CADE27.wrong.preds, aes(x=factor(dead_check), y= pct_wrong, color=factor(model))) +
-  geom_boxplot() +
-  theme_classic() +
-  scale_color_viridis(discrete=TRUE, option = "turbo")
-
-
-LAOC.test.preds$wrong <- ifelse(LAOC.test.preds$Status == LAOC.test.preds$preds, 0,1)
-LAOC.test.preds$correct <- ifelse(LAOC.test.preds$Status == LAOC.test.preds$preds, 1,0)
-LAOC.test.preds %>%
-  filter(Status==1, dead_check != 9) %>%
-  group_by(dead_check,model, rep, Status) %>%
-  summarize(pct_wrong = sum(wrong)/length(wrong) * 100,
-            nwrong = sum(wrong),
-            ncorrect = sum(correct),
-            lwrong = length(wrong),
-            lcorr = length(correct),
-            modelrep = paste(model, "_", rep),
-            pct_correct = sum(correct)/length(correct) * 100) %>%
-  drop_na(dead_check) -> LAOC.wrong.preds
-
-
-LAOC.wrong.p <- ggplot(data=LAOC.wrong.preds, aes(x=factor(dead_check), y= pct_wrong, color=factor(model))) +
-  geom_boxplot() +
-  theme_classic() +
-  scale_color_viridis(discrete=TRUE, option = "turbo")
-
-
-PICO.test.preds$wrong <- ifelse(PICO.test.preds$Status == PICO.test.preds$preds, 0,1)
-PICO.test.preds$correct <- ifelse(PICO.test.preds$Status == PICO.test.preds$preds, 1,0)
-PICO.test.preds %>%
-  filter(Status==1, dead_check != 9) %>%
-  group_by(dead_check,model, rep, Status) %>%
-  summarize(pct_wrong = sum(wrong)/length(wrong) * 100,
-            nwrong = sum(wrong),
-            ncorrect = sum(correct),
-            lwrong = length(wrong),
-            lcorr = length(correct),
-            modelrep = paste(model, "_", rep),
-            pct_correct = sum(correct)/length(correct) * 100) %>%
-  drop_na(dead_check) -> PICO.wrong.preds
-
-
-PICO.wrong.p <- ggplot(data=PICO.wrong.preds, aes(x=factor(dead_check), y= pct_wrong, color=factor(model))) +
-  geom_boxplot() +
-  theme_classic() +
-  scale_color_viridis(discrete=TRUE, option = "turbo")
-
-
-PILA.test.preds$wrong <- ifelse(PILA.test.preds$Status == PILA.test.preds$preds, 0,1)
-PILA.test.preds$correct <- ifelse(PILA.test.preds$Status == PILA.test.preds$preds, 1,0)
-PILA.test.preds %>%
-  filter(Status==1, dead_check != 9) %>%
-  group_by(dead_check,model, rep, Status) %>%
-  summarize(pct_wrong = sum(wrong)/length(wrong) * 100,
-            nwrong = sum(wrong),
-            ncorrect = sum(correct),
-            lwrong = length(wrong),
-            lcorr = length(correct),
-            modelrep = paste(model, "_", rep),
-            pct_correct = sum(correct)/length(correct) * 100) %>%
-  drop_na(dead_check) -> PILA.wrong.preds
-
-
-PILA.wrong.p <- ggplot(data=PILA.wrong.preds, aes(x=factor(dead_check), y= pct_wrong, color=factor(model))) +
-  geom_boxplot() +
-  theme_classic() +
-  scale_color_viridis(discrete=TRUE, option = "turbo")
-
-
-PIPO.test.preds$wrong <- ifelse(PIPO.test.preds$Status == PIPO.test.preds$preds, 0,1)
-PIPO.test.preds$correct <- ifelse(PIPO.test.preds$Status == PIPO.test.preds$preds, 1,0)
-PIPO.test.preds %>%
-  filter(Status==1, dead_check != 9) %>%
-  group_by(dead_check,model, rep, Status) %>%
-  summarize(pct_wrong = sum(wrong)/length(wrong) * 100,
-            nwrong = sum(wrong),
-            ncorrect = sum(correct),
-            lwrong = length(wrong),
-            lcorr = length(correct),
-            modelrep = paste(model, "_", rep),
-            pct_correct = sum(correct)/length(correct) * 100) %>%
-  drop_na(dead_check) -> PIPO.wrong.preds
-
-
-PIPO.wrong.p <- ggplot(data=PIPO.wrong.preds, aes(x=factor(dead_check), y= pct_wrong, color=factor(model))) +
-  geom_boxplot() +
-  theme_classic() +
-  scale_color_viridis(discrete=TRUE, option = "turbo")
-
-PSME.test.preds$wrong <- ifelse(PSME.test.preds$Status == PSME.test.preds$preds, 0,1)
-PSME.test.preds$correct <- ifelse(PSME.test.preds$Status == PSME.test.preds$preds, 1,0)
-PSME.test.preds %>%
-  filter(Status==1, dead_check != 9) %>%
-  group_by(dead_check,model, rep, Status) %>%
-  summarize(pct_wrong = sum(wrong)/length(wrong) * 100,
-            nwrong = sum(wrong),
-            ncorrect = sum(correct),
-            lwrong = length(wrong),
-            lcorr = length(correct),
-            modelrep = paste(model, "_", rep),
-            pct_correct = sum(correct)/length(correct) * 100) %>%
-  drop_na(dead_check) -> PSME.wrong.preds
-
-
-PSME.wrong.p <- ggplot(data=PSME.wrong.preds, aes(x=factor(dead_check), y= pct_wrong, color=factor(model))) +
-  geom_boxplot() +
-  theme_classic() +
-  scale_color_viridis(discrete=TRUE, option = "turbo")
-
-#Facet plots so they all fit in one figure
-p1 <- ABCO.wrong.p + ggtitle("ABCO")+
-  ylim(c(0,100)) +
-  theme_bw() +
-  theme(axis.title.x = element_text(size=18), 
-        axis.title.y = element_text(size=18), 
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),  
-        panel.grid.minor = element_blank(),  
-        plot.background = element_blank())
-
-
-p2 <- ABGR.wrong.p + ggtitle("ABGR")+
-  ylim(c(0,100)) +
-  theme_bw() +
-  theme(axis.title.x = element_text(size=18), 
-        axis.title.y = element_text(size=18), 
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),  
-        panel.grid.minor = element_blank(),  
-        plot.background = element_blank())
-
-
-p3 <- CADE27.wrong.p + ggtitle("CADE27")+
-  ylim(c(0,100)) +
-  theme_bw() +
-  theme(axis.title.x = element_text(size=18), 
-        axis.title.y = element_text(size=18), 
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),  
-        panel.grid.minor = element_blank(),  
-        plot.background = element_blank())
-
-
-p4 <- LAOC.wrong.p + ggtitle("LAOC")+
-  ylim(c(0,100)) +
-  theme_bw() +
-  theme(axis.title.x = element_text(size=18), 
-        axis.title.y = element_text(size=18), 
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),  
-        panel.grid.minor = element_blank(),  
-        plot.background = element_blank())
-
-
-p5 <- PICO.wrong.p + ggtitle("PICO")+
-  ylim(c(0,100)) +
-  theme_bw() +
-  theme(axis.title.x = element_text(size=18), 
-        axis.title.y = element_text(size=18), 
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),  
-        panel.grid.minor = element_blank(),  
-        plot.background = element_blank())
-
-
-p6 <- PILA.wrong.p + ggtitle("PILA")+
-  ylim(c(0,100)) +
-  theme_bw() +
-  theme(axis.title.x = element_text(size=18), 
-        axis.title.y = element_text(size=18), 
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),  
-        panel.grid.minor = element_blank(),  
-        plot.background = element_blank())
-
-
-p7 <- PIPO.wrong.p + ggtitle("PIPO")+
-  ylim(c(0,100)) +
-  theme_bw() +
-  theme(axis.title.x = element_text(size=18), 
-        axis.title.y = element_text(size=18), 
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),  
-        panel.grid.minor = element_blank(),  
-        plot.background = element_blank())
-
-
-p8 <- PSME.wrong.p + ggtitle("PSME")+
-  ylim(c(0,100)) +
-  theme_bw() +
-  theme(axis.title.x = element_text(size=18), 
-        axis.title.y = element_text(size=18), 
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),  
-        panel.grid.minor = element_blank(),  
-        plot.background = element_blank())
-
-
-ggarrange(p1,p2,
-          p3,p4,
-          p5,p6,
-          p7,p8,
-          ncol=2,
-          nrow = 4,
-          common.legend = TRUE,
-          legend = "right")
-
-##From here the plots are exported to Inkscape for some finishing cosmetic touches
-##These post-process touches (fonts etc.) can probably be done here in R. 
-##In the future I will try to update the code so it is all done here.
 
 #create a file with the cumulative model accuracy
 cumulative_acc <- rbind(ABCO_RF_preds.sum,ABGR_RF_preds.sum,CADE27_RF_preds.sum,LAOC_RF_preds.sum,PICO_RF_preds.sum,PILA_RF_preds.sum,PIPO_RF_preds.sum, PSME_RF_preds.sum)
 write.csv(cumulative_acc, "cummulative_acc.csv")
 
-spp_list5
-temp <- lm(data=CADE27_RF_preds.sum, MeanLive~Model)
-summary(temp)
-plot(temp)
-
-spp.preds<-c(ABCO_RF_preds.sum,
-             ABGR_RF_preds.sum,
-             CADE27_RF_preds.sum,
-             LAOC_RF_preds.sum,
-             PICO_RF_preds.sum,
-             PILA_RF_preds.sum,
-             PIPO_RF_preds.sum, 
-             PSME_RF_preds.sum)
-
-
-ABCO.live.lm <- lm(data=ABCO_RF_preds.sum,  MeanLive~Model)
-ABCO.dead.lm <- lm(data=ABCO_RF_preds.sum,  MeanDead~Model)
-ABCO.total.lm <- lm(data=ABCO_RF_preds.sum,  MeanTotal~Model)
-
-ABGR.live.lm <- lm(data=ABGR_RF_preds.sum,  MeanLive~Model)
-ABGR.dead.lm <- lm(data=ABGR_RF_preds.sum,  MeanDead~Model)
-ABGR.total.lm <- lm(data=ABGR_RF_preds.sum,  MeanTotal~Model)
-
-CADE27.live.lm <- lm(data=CADE27_RF_preds.sum,  MeanLive~Model)
-CADE27.dead.lm <- lm(data=CADE27_RF_preds.sum,  MeanDead~Model)
-CADE27.total.lm <- lm(data=CADE27_RF_preds.sum,  MeanTotal~Model)
-
-LAOC.live.lm <- lm(data=LAOC_RF_preds.sum,  MeanLive~Model)
-LAOC.dead.lm <- lm(data=LAOC_RF_preds.sum,  MeanDead~Model)
-LAOC.total.lm <- lm(data=LAOC_RF_preds.sum,  MeanTotal~Model)
-
-PICO.live.lm <- lm(data=PICO_RF_preds.sum,  MeanLive~Model)
-PICO.dead.lm <- lm(data=PICO_RF_preds.sum,  MeanDead~Model)
-PICO.total.lm <- lm(data=PICO_RF_preds.sum,  MeanTotal~Model)
-
-PILA.live.lm <- lm(data=PILA_RF_preds.sum,  MeanLive~Model)
-summary(PILA.live.lm)
-PILA.dead.lm <- lm(data=PILA_RF_preds.sum,  MeanDead~Model)
-summary(PILA.dead.lm)
-
-PILA.total.lm <- lm(data=PILA_RF_preds.sum,  MeanTotal~Model)
-
-PIPO.live.lm <- lm(data=PIPO_RF_preds.sum,  MeanLive~Model)
-PIPO.dead.lm <- lm(data=PIPO_RF_preds.sum,  MeanDead~Model)
-PIPO.total.lm <- lm(data=PIPO_RF_preds.sum,  MeanTotal~Model)
-
-PSME.live.lm <- lm(data=PSME_RF_preds.sum,  MeanLive~Model)
-PSME.dead.lm <- lm(data=PSME_RF_preds.sum,  MeanDead~Model)
-PSME.total.lm <- lm(data=PSME_RF_preds.sum,  MeanTotal~Model)
-
-summary(ABCO.live.lm)
-
-plot(ABCO.total.lm)
 

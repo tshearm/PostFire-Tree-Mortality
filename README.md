@@ -2,7 +2,7 @@
 R code for post-fire tree mortality analyses
 
 # Disclaimer
-This code was used in the analysis of post-fire tree mortality in the manuscript "Predictive accuracy of post-fire conifer death declines over time in models based on crown and bole injury " currently in minor revisions for the journal Ecological Applications. I am sure there is a more efficient way to code these analyses and in the future I hope to update it with better code. For now, this is exactly what was used in the paper. I have added comments throughout the code to help anyone make sense of what I did but feel free to send a message if you have any qustions.
+This code was used in the analysis of post-fire tree mortality in the manuscript "Predictive accuracy of post-fire conifer death declines over time in models based on crown and bole injury " currently accepted in the journal Ecological Applications. I am sure there is a more efficient way to code these analyses and in the future I hope to update it with better code. For now, this is exactly what was used in the paper. I have added comments throughout the code to help anyone make sense of what I did but feel free to send a message if you have any qustions.
 
 The code is free to use for anyone. Suggestions for improvements are always welcome. Contact tshearman@talltimbers.org for any questions/comments.
 
